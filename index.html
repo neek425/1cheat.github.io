@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rewind - OGFN Community</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Poppins:wght@400;600&display=swap');
+
+    /* Reset and base */
+    * {
+      margin: 0; padding: 0; box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #0d1117;
+      color: #c9d1d9;
+      overflow-x: hidden;
+      cursor: url('data:image/svg+xml;utf8,<svg height="32" width="32" xmlns="http://www.w3.org/2000/svg"><circle cx="16" cy="16" r="8" fill="%23A3D8FF"/></svg>') 16 16, auto;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Particle background */
+    #particles-js {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -1;
+      background: linear-gradient(135deg, #010409, #0a1a2b);
+    }
+
+    header {
+      width: 100%;
+      max-width: 1200px;
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      backdrop-filter: blur(12px);
+      background: rgba(13,17,23,0.7);
+      border-radius: 12px;
+      margin-top: 2rem;
+      box-shadow: 0 0 15px #0f6fffaa;
+    }
+    header h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 2.8rem;
+      letter-spacing: 0.15em;
+      color: #39a9ff;
+      text-shadow: 0 0 15px #39a9ffbb;
+      user-select: none;
+    }
+    nav a {
+      color: #39a9ffaa;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-left: 2rem;
+      text-decoration: none;
+      position: relative;
+      padding-bottom: 4px;
+      transition: color 0.3s ease;
+      user-select: none;
+    }
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0;
+      height: 2px;
+      background: #39a9ff;
+      transition: width 0.3s ease;
+      border-radius: 1px;
+    }
+    nav a:hover {
+      color: #58b2ff;
+    }
+    nav a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: 6rem auto 3rem;
+      text-align: center;
+      padding: 0 2rem;
+      user-select: none;
+    }
+    main h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700;
+      font-size: 3.8rem;
+      color: #58b2ff;
+      text-shadow: 0 0 20px #58b2ffcc;
+      margin-bottom: 1rem;
+      animation: pulseGlow 3s ease-in-out infinite alternate;
+    }
+    @keyframes pulseGlow {
+      0% { text-shadow: 0 0 15px #58b2ffbb, 0 0 25px #58b2ff77; }
+      100% { text-shadow: 0 0 40px #58b2ffcc, 0 0 80px #58b2ffaa; }
+    }
+    main p {
+      font-size: 1.4rem;
+      line-height: 1.7;
+      color: #a4b9d3cc;
+      margin-bottom: 3rem;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Glass button */
+    .btn {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #39a9ff;
+      background: rgba(13,17,23,0.5);
+      border: 2px solid #39a9ff;
+      padding: 1rem 3rem;
+      border-radius: 50px;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 0 15px #39a9ffaa;
+      transition: all 0.3s ease;
+      display: inline-block;
+      user-select: none;
+    }
+    .btn:hover {
+      background: #39a9ff33;
+      box-shadow: 0 0 30px #39a9ffee;
+      color: #d1eaff;
+      transform: scale(1.05);
+    }
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Sections */
+    section {
+      max-width: 700px;
+      margin: 4rem auto;
+      background: rgba(13,17,23,0.55);
+      border-radius: 16px;
+      padding: 2.5rem 3rem;
+      box-shadow: 0 0 25px #39a9ff55;
+      backdrop-filter: blur(16px);
+      user-select: none;
+    }
+    section h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      color: #58b2ffcc;
+      margin-bottom: 1rem;
+      text-align: center;
+      text-shadow: 0 0 20px #58b2ff99;
+    }
+    section p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      color: #a4b9d3cc;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    section a.btn {
+      display: block;
+      width: 260px;
+      margin: 0 auto;
+    }
+
+    /* Footer */
+    footer {
+      margin: 4rem 0 2rem;
+      color: #586e75aa;
+      font-size: 0.9rem;
+      user-select: none;
+    }
+
+    /* Smooth fade in */
+    body {
+      opacity: 0;
+      animation: fadeIn 1.5s forwards ease;
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    /* Parallax scroll effect on header */
+    @media (prefers-reduced-motion: no-preference) {
+      main h2 {
+        will-change: transform;
+      }
+      window.addEventListener && window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        document.querySelector('main h2').style.transform = `translateY(${scrollY * 0.3}px)`;
+      });
+    }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      header {
+        padding: 1rem 2rem;
+        flex-direction: column;
+      }
+      nav {
+        margin-top: 1rem;
+      }
+      nav a {
+        margin-left: 1rem;
+        font-size: 1rem;
+      }
+      main h2 {
+        font-size: 2.8rem;
+      }
+      section {
+        margin: 3rem 1rem;
+        padding: 2rem 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="particles-js"></div>
+
+  <header>
+    <h1>REWIND</h1>
+    <nav>
+      <a href="#download">Download</a>
+      <a href="#discord">Discord</a>
+      <a href="#about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>The OGFN Community Hub</h2>
+    <p>Connect with other players, download the official Rewind launcher, and join our vibrant Discord server. Experience gaming with style, fairness, and fun.</p>
+    <a class="btn" href="#download">Download Launcher</a>
+  </main>
+
+  <section id="download">
+    <h3>Download Rewind Launcher</h3>
+    <p>Get the latest version of our official launcher for a seamless OGFN experience.</p>
+    <a class="btn" href="https://public-service-live.ol.privateuser.xyz/Rewind_0.0.3_x64-setup.exe" target="_blank" rel="noopener">Download Now</a>
+  </section>
+
+  <section id="discord">
+    <h3>Join Our Discord Community</h3>
+    <p>Chat with other players, get support, and stay updated on news and events.</p>
+    <a class="btn" href="https://discord.gg/S6SvqNMh6c" target="_blank" rel="noopener">Join Discord</a>
+  </section>
+
+  <section id="about">
+    <h3>About Rewind</h3>
+    <p>Rewind is dedicated to building a strong, fair, and fun OGFN community. We're committed to regular updates, player engagement, and an inclusive environment for all.</p>
+  </section>
+
+  <footer>
+    &copy; 2025 Rewind. All rights reserved.
+  </footer>
+
+  <!-- Particle.js CDN & init -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+  <script>
+    particlesJS('particles-js', {
+      "particles": {
+        "number": {
+          "value": 80,
+          "density": { "enable": true, "value_area": 700 }
+        },
+        "color": { "value": "#39a9ff" },
+        "shape": {
+          "type": "circle"
+        },
+        "opacity": {
+          "value": 0.3,
+          "random": true,
+          "anim": { "enable": true, "speed": 1, "opacity_min": 0.1, "sync": false }
+        },
+        "size": {
+          "value": 3,
+          "random": true,
+          "anim": { "enable": true, "speed": 3, "size_min": 0.3, "sync": false }
+        },
+        "move": {
+          "enable": true,
+          "speed": 1.8,
+          "direction": "none",
+          "random": true,
+          "straight": false,
+          "out_mode": "out",
+          "bounce": false,
+          "attract": { "enable": false }
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": true, "mode": "grab" },
+          "onclick": { "enable": true, "mode": "push" }
+        },
+        "modes": {
+          "grab": { "distance": 120, "line_linked": { "opacity": 0.25 } },
+          "push": { "particles_nb": 4 }
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
+
+</body>
+</html>
